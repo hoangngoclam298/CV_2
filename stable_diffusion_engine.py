@@ -163,6 +163,8 @@ class StableDiffusionEngine:
 
         # if we use LMSDiscreteScheduler, let's make sure latents are mulitplied by sigmas
         if isinstance(self.scheduler, LMSDiscreteScheduler):
+            print(type(latents))
+            print(type(self.scheduler.sigmas[0]))
             latents = latents * self.scheduler.sigmas[0]
 
         # prepare extra kwargs for the scheduler step, since not all schedulers have the same signature
