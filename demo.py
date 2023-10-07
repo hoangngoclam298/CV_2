@@ -22,7 +22,7 @@ def main(args):
             beta_start=args.beta_start,
             beta_end=args.beta_end,
             beta_schedule=args.beta_schedule,
-            tensor_format="np"
+            # tensor_format="np"
         )
     else:
         scheduler = PNDMScheduler(
