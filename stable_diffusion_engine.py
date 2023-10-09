@@ -107,7 +107,7 @@ class StableDiffusionEngine:
             init_image = None,
             mask = None,
             strength = 0.5,
-            num_inference_steps = 16,
+            num_inference_steps = 32,
             guidance_scale = 7.5,
             eta = 0.0
     ):
@@ -198,6 +198,7 @@ class StableDiffusionEngine:
 
             # compute the previous noisy sample x_t -> x_t-1
             if isinstance(self.scheduler, LMSDiscreteScheduler):
+                print(noise_pred, i, latents, **extra_step_kwargs)
                 latents = self.scheduler.step(noise_pred, i, latents, **extra_step_kwargs)["prev_sample"]
             else:
                 latents = self.scheduler.step(noise_pred, t, latents, **extra_step_kwargs)["prev_sample"]
