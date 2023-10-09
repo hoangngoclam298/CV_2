@@ -166,7 +166,7 @@ class StableDiffusionEngine:
         if isinstance(self.scheduler, LMSDiscreteScheduler):
             print(type(latents))
             print(type(self.scheduler.sigmas[0]))
-            latents =  torch.from_numpy(latents) * self.scheduler.sigmas[0]
+            latents =  latents * self.scheduler.sigmas[0].numpy()
 
         # prepare extra kwargs for the scheduler step, since not all schedulers have the same signature
         # eta (η) is only used with the DDIMScheduler, it will be ignored for other schedulers.
@@ -198,7 +198,6 @@ class StableDiffusionEngine:
 
             # compute the previous noisy sample x_t -> x_t-1
             if isinstance(self.scheduler, LMSDiscreteScheduler):
-                print(noise_pred, i, latents, **extra_step_kwargs)
                 latents = self.scheduler.step(noise_pred, i, latents, **extra_step_kwargs)["prev_sample"]
             else:
                 latents = self.scheduler.step(noise_pred, t, latents, **extra_step_kwargs)["prev_sample"]
